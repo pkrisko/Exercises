@@ -1,16 +1,21 @@
 :root{
-  --white: #ffffff;
   --offwhite: #EFEFEF;
-  --black: #000000;
   --blue: #018DED;
 }
+
+img {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  filter: blur(4px);
+}
+
 html {
-  background:var(--blue) url("../img/la-persistencia.jpg!Large.jpg");
+  background: var(--blue);
   background-size:cover;
   font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
   text-align: center;
   font-size: 10px;
-  /* filter: blur(10px); */
 }
 
 body {
@@ -25,16 +30,14 @@ body {
 .clock {
   width: 30rem;
   height: 30rem;
-  border:20px solid var(--white);
+  border:20px solid white;
   border-radius:50%;
   margin:50px auto;
   position: relative;
   padding:2rem;
   box-shadow:
-  0 0 0 4px rgba(0,0,0,0.1),
-  inset 0 0 0 3px #EFEFEF,
-  inset 0 0 10px var(--black),
-  0 0 10px rgba(0,0,0,0.2);
+    5px 5px 0px 5px black,
+    inset 0 1px 0 5px black;
   transform : skew(15deg, 15deg);
 }
 
@@ -48,7 +51,6 @@ body {
 .tick {
   width: 50%;
   height: 6px;
-  /* background:white; */
   position: absolute;
   top: 50%;
   transform-origin: 100%;
@@ -91,7 +93,6 @@ body {
   flex-direction: flex-start;
   width:50%;
   height:6px;
-  /* background:black; */
   position: absolute;
   top:50%;
   transform-origin: 100%;

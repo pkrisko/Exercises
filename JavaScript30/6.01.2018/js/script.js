@@ -2,6 +2,31 @@ const secondHand = document.querySelector('.second-hand');
 const minsHand = document.querySelector('.min-hand');
 const hourHand = document.querySelector('.hour-hand');
 const allHands = document.querySelectorAll('.hand');
+const clock = document.querySelector('.clock');
+let scalar = 1.1;
+let increasing = true;
+
+function scale() {
+    if (increasing && scalar < 1.5) {
+        scalar = scalar + .001;
+    } else if (increasing && scalar == 1.5) {
+        increasing = false;
+        scalar = scalar * -1;
+    }
+
+    if (!increasing && scalar < -1.0) {
+        scalar = scalar + .001;
+    } else if (!increasing && scalar == -1.0) {
+        increasing = true;
+        scalar = scalar * -1;
+    }
+
+    scalar = parseFloat(Number.parseFloat(scalar).toFixed(3));
+    clock.style.transform = `scale(${scalar}, ${scalar}) skew(15deg, 15deg)`;
+    if (scalar  < 0)
+        clock.style.transform = `scale(${scalar}, ${scalar}) rotate(180deg) skew(15deg, 15deg)`
+
+}
 
 for (let idx = 0; idx < 12; idx++) {
     let ele = document.createElement("div");
@@ -68,3 +93,4 @@ function setHour(now) {
 
 // Run the setDate() function every 1000ms (one second). Think of as game loop.
 setInterval(setDate, 1000);
+setInterval(scale, 15);
