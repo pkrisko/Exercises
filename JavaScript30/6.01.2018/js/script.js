@@ -3,6 +3,20 @@ const minsHand = document.querySelector('.min-hand');
 const hourHand = document.querySelector('.hour-hand');
 const allHands = document.querySelectorAll('.hand');
 
+for (let idx = 0; idx < 12; idx++) {
+    let ele = document.createElement("div");
+    ele.classList.add("tick");
+    let angle = (idx / 12) * 360;
+    ele.style.transform = `rotate(${angle}deg)`
+    let ele2 = document.createElement("div");
+    ele2.classList.add("tick-inside");
+    ele.appendChild(ele2);
+    const parent = document.querySelector(".clock-face");
+    parent.insertBefore(ele, parent.childNodes[0]);
+    // parent.appendChild(ele);
+}
+
+
 /**
  * Update the clock displayed on the screen based on values obtained from the
  * JavaScript date class. Accounts for a bug which occurs when the second hand
