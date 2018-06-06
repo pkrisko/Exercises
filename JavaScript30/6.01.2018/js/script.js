@@ -1,16 +1,23 @@
+// Selection of various DOM elements used throughout the class
 const secondHand = document.querySelector('.second-hand');
 const minsHand = document.querySelector('.min-hand');
 const hourHand = document.querySelector('.hour-hand');
 const allHands = document.querySelectorAll('.hand');
 const clock = document.querySelector('.clock');
 const clockFace = document.querySelector(".clock-face");
+// Variables used for managing size between calls to scale
 let scalar = 1.1;
 let increasing = true;
 
+/**
+ * Adjusts the transform css characteristic of the entire rendered clock,
+ * chiefly scaling up and down the size.
+ * Called Once every 15ms.
+ */
 function scale() {
     if (scalar == 1.5 || scalar == -1) {
-        increasing = !increasing;
-        scalar = scalar * -1;
+        increasing = !increasing; // Flip boolean
+        scalar = scalar * -1; // Flip between positive / negative, grow / shrink
     }
     scalar = scalar + .001;
     // Accounts for numbers like 1.200000000002 which break the code
@@ -28,7 +35,6 @@ for (let idx = 0; idx < 12; idx++) {
     ele.appendChild(ele2); // Append rendered div inside of parent
     clockFace.insertBefore(ele, clockFace.childNodes[0]);
 }
-
 
 /**
  * Update the clock displayed on the screen based on values obtained from the
