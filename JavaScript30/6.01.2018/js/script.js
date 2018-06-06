@@ -3,42 +3,30 @@ const minsHand = document.querySelector('.min-hand');
 const hourHand = document.querySelector('.hour-hand');
 const allHands = document.querySelectorAll('.hand');
 const clock = document.querySelector('.clock');
+const clockFace = document.querySelector(".clock-face");
 let scalar = 1.1;
 let increasing = true;
 
 function scale() {
-    if (increasing && scalar < 1.5) {
-        scalar = scalar + .001;
-    } else if (increasing && scalar == 1.5) {
-        increasing = false;
+    if (scalar == 1.5 || scalar == -1) {
+        increasing = !increasing;
         scalar = scalar * -1;
     }
-
-    if (!increasing && scalar < -1.0) {
-        scalar = scalar + .001;
-    } else if (!increasing && scalar == -1.0) {
-        increasing = true;
-        scalar = scalar * -1;
-    }
-
+    scalar = scalar + .001;
+    // Accounts for numbers like 1.200000000002 which break the code
     scalar = parseFloat(Number.parseFloat(scalar).toFixed(3));
-    clock.style.transform = `scale(${scalar}, ${scalar}) skew(15deg, 15deg)`;
-    if (scalar  < 0)
-        clock.style.transform = `scale(${scalar}, ${scalar}) rotate(180deg) skew(15deg, 15deg)`
-
+    clock.style.transform = (scalar > 0) ? `scale(${scalar}, ${scalar}) skew(12deg, 12deg)` : `scale(${scalar}, ${scalar}) rotate(180deg) skew(12deg, 12deg)`;
 }
 
 for (let idx = 0; idx < 12; idx++) {
-    let ele = document.createElement("div");
+    let angle = (idx / 12) * 360; // 12 Tick angles
+    // Ele is the box that holds the tick, ele2 is the visible part that gets rendered
+    let ele = document.createElement("div"), ele2 = document.createElement("div");
     ele.classList.add("tick");
-    let angle = (idx / 12) * 360;
     ele.style.transform = `rotate(${angle}deg)`
-    let ele2 = document.createElement("div");
     ele2.classList.add("tick-inside");
-    ele.appendChild(ele2);
-    const parent = document.querySelector(".clock-face");
-    parent.insertBefore(ele, parent.childNodes[0]);
-    // parent.appendChild(ele);
+    ele.appendChild(ele2); // Append rendered div inside of parent
+    clockFace.insertBefore(ele, clockFace.childNodes[0]);
 }
 
 
