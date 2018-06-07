@@ -48,6 +48,10 @@ body {
   transform: translateY(-3px); /* account for the height of the clock hands */
 }
 
+p {
+  transform: rotate(-90deg);
+}
+
 .tick {
   width: 50%;
   height: 6px;
@@ -59,7 +63,7 @@ body {
 .tick-inside {
   width: 25%;
   height: 6px;
-  background:black;
+  /* background:black; */
   position: absolute;
 }
 
