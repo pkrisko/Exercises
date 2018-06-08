@@ -9,6 +9,9 @@ const clockFace = document.querySelector(".clock-face");
 let scalar = 1.1;
 let increasing = true;
 let rotation = 0;
+// input
+const slider = document.querySelector('input');
+let skewer = 12;
 
 for (let idx = 0; idx < 12; idx++) { // 12 Hours on the clock
     let angle = (idx / 12) * 360; // 12 Tick angles
@@ -18,8 +21,9 @@ for (let idx = 0; idx < 12; idx++) { // 12 Hours on the clock
     outerBox.classList.add("tick-inside");
     // Create hour number HTML element, and styling
     let hourNumber = document.createElement("p");
-    let tempIdx = (idx <= 3) ? idx + 12 : idx;
-    let textNode = document.createTextNode(((tempIdx - 3)).toString());
+    let tempIdx = (idx <= 4) ? idx + 12 : idx;
+    // tempIdx = (tempIdx == 12) ? 1 : tempIdx - 1;
+    let textNode = document.createTextNode((tempIdx - 4).toString());
     hourNumber.style.transform = `rotate(-115deg) translate(-100%)`;
     hourNumber.style.color = `white`;
     hourNumber.style.textShadow = `1px 1px black`;
@@ -43,7 +47,7 @@ function scale() {
     scalar = scalar + .001;
     // Accounts for numbers like 1.200000000002 which break the code
     scalar = parseFloat(Number.parseFloat(scalar).toFixed(3));
-    clock.style.transform = (scalar > 0) ? `scale(${scalar}, ${scalar}) skew(12deg, 12deg)` : `scale(${scalar}, ${scalar}) rotate(180deg) skew(12deg, 12deg)`;
+    clock.style.transform = (scalar > 0) ? `scale(${scalar}, ${scalar}) skew(${skewer}deg, ${skewer}deg)` : `scale(${scalar}, ${scalar}) rotate(180deg) skew(${skewer}deg, ${skewer}deg)`;
 }
 
 function rotateClock() {
@@ -102,7 +106,15 @@ function setHour(now) {
     hourHand.style.transform = `rotate(${hoursDegrees}deg)`; // <- backticks
 }
 
+function handleUpdate() {
+    console.log(this.value);
+    skewer = this.value;
+    console.log(skewer);
+}
+
 // Think of as game loop.
 setInterval(setDate, 1000);
 setInterval(scale, 15);
 clockFace.addEventListener('click', rotateClock);
+slider.addEventListener('change', handleUpdate);
+slider.addEventListener('mousemove', handleUpdate);
